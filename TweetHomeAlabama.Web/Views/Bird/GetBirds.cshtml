@@ -1,0 +1,67 @@
+﻿@using System.Collections.Generic;
+@using TweetHomeAlabama.Domain.Models;
+
+@model IEnumerable<Bird>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Bird List";
+}
+
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid blue;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+</style>
+</head>
+<body style="background-color:lightblue;">
+
+<h1 style="color:darkcyan">Birds</h1>
+
+    <table style="width:100%">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bird in Model)
+        {
+            <tr>
+                <style type="text/css">
+                    td {
+                        padding: 0 15px;
+                    }
+                </style>
+                <td>
+                    @Html.DisplayFor(modelItem => bird.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => bird.ShortDescription)
+                </td>
+                <td>
+                    <img src="@Url.Content(bird.ImageUrl)" alt="" border=3 height=200 width=200></img>
+                </td>
+            </tr>
+            <br>
+        }
+    </tbody>
+</table>
+
+</body>
+</html>

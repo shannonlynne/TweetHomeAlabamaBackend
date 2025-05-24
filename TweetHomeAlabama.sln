@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetHomeAlabama.Domain", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetHomeAlabama.Data", "TweetHomeAlabama.Infrastructure\TweetHomeAlabama.Data.csproj", "{B3D4F0D7-58ED-42EE-8B65-63B3F158883E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetHomeAlabama.Web", "TweetHomeAlabama.Web\TweetHomeAlabama.Web.csproj", "{E8822640-37BB-4DAD-8957-09F7B741F61B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetHomeAlabama.Application", "TweetHomeAlabama.Application\TweetHomeAlabama.Application.csproj", "{FBC0A34A-90BF-4559-8898-4609388A5E0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetHomeAlabama.Tests", "TweetHomeAlabama.UnitTests\TweetHomeAlabama.Tests.csproj", "{B24D2D25-2B3D-4940-8209-BCB228F382AC}"
@@ -29,10 +27,6 @@ Global
 		{B3D4F0D7-58ED-42EE-8B65-63B3F158883E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3D4F0D7-58ED-42EE-8B65-63B3F158883E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3D4F0D7-58ED-42EE-8B65-63B3F158883E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8822640-37BB-4DAD-8957-09F7B741F61B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8822640-37BB-4DAD-8957-09F7B741F61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8822640-37BB-4DAD-8957-09F7B741F61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8822640-37BB-4DAD-8957-09F7B741F61B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBC0A34A-90BF-4559-8898-4609388A5E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBC0A34A-90BF-4559-8898-4609388A5E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBC0A34A-90BF-4559-8898-4609388A5E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU

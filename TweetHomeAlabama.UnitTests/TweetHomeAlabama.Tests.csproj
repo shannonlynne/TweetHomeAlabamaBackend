@@ -19,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TweetHomeAlabama.API\TweetHomeAlabama.API.csproj" />
     <ProjectReference Include="..\TweetHomeAlabama.Application\TweetHomeAlabama.Application.csproj" />
-    <ProjectReference Include="..\TweetHomeAlabama.Web\TweetHomeAlabama.Web.csproj" />
   </ItemGroup>
 
 </Project>

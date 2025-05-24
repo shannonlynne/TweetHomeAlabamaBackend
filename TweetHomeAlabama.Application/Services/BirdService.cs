@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
 using TweetHomeAlabama.Application.Interfaces;
 using TweetHomeAlabama.Application.Models;
 using TweetHomeAlabama.Data.DataContext;
@@ -21,16 +20,35 @@ namespace TweetHomeAlabama.Application.Services
             if (bird is null)
                 throw new ArgumentNullException(nameof(bird));
 
-            if (bird.Colors is not null && bird.Colors.Any(b => !IsValidString(b)))
+            if (bird.Name is null || bird.Name == string.Empty)
+                throw new ArgumentException("The bird needs a name.");
+
+            if (bird.ImageUrl is null || bird.ImageUrl == string.Empty)
+                throw new ArgumentException("The bird needs an image url.");
+
+            if (bird.ShortDescription is null || bird.ShortDescription == string.Empty)
+                throw new ArgumentException("The bird needs a description.");
+
+            if (bird.Shape is null || bird.Shape == string.Empty)
+                throw new ArgumentException("The bird needs a shape.");
+
+            if (bird.Size is null || bird.Size == string.Empty)
+                throw new ArgumentException("The bird needs a size.");
+
+            if (bird.Colors is not null && !bird.Colors.Any())
                 throw new ArgumentException("Invalid color string format.");
 
-            if (bird.Habitats is not null && bird.Habitats.Any(b => !IsValidString(b)))
+            if (bird.Habitats is not null && !bird.Habitats.Any())
                 throw new ArgumentException("Invalid color string format.");
 
             BirdEntity? existingBird = await _context.Birds
                 .FirstOrDefaultAsync(b => b.Name == bird.Name);
 
-            if (existingBird is null)
+            if (existingBird is not null)
+            {
+                throw new ArgumentException("This bird already exists");
+            }
+            else
             {
                 ShapeEntity shape = new ShapeEntity()
                 {
@@ -80,7 +98,6 @@ namespace TweetHomeAlabama.Application.Services
 
                 return true;
             }
-            return false;
         }
 
         public async Task<IList<BirdDto>> GetAll()
@@ -121,33 +138,36 @@ namespace TweetHomeAlabama.Application.Services
                 int matches = 0;
                 if (colors != null && colors.Count() > 0)
                 {
-                    if (bird.Colors.Where(c => colors.Contains(c)).Count() > 1)
+                    if (bird.Colors.Count(c =>
+                        colors.Any(input => string.Equals(input, c, StringComparison.OrdinalIgnoreCase))) > 1)
                     {
                         filteredBirds.Add(bird);
                         continue;
                     }
-                    else if (bird.Colors.Any(c => colors.Contains(c)))
+                    if (bird.Colors.Any(h => colors.Any(input =>
+                        string.Equals(input, h, StringComparison.OrdinalIgnoreCase))))
                     {
                         matches++;
                     }
                 }
                 else if (size != null)
                 {
-                    if (bird.Size == size)
+                    if (string.Equals(bird.Size, size, StringComparison.OrdinalIgnoreCase))
                     {
                         matches++;
                     }
                 }
                 else if (shape != null)
                 {
-                    if (bird.Shape == shape)
+                    if (string.Equals(bird.Shape, shape, StringComparison.OrdinalIgnoreCase))
                     {
                         matches++;
                     }
                 }
                 else if (habitat != null && habitat.Count() > 0)
                 {
-                    if (bird.Habitats.Any(h => habitat.Contains(h)))
+                    if (bird.Habitats.Any(h => habitat.Any(input =>
+                        string.Equals(input, h, StringComparison.OrdinalIgnoreCase))))
                     {
                         matches++;
                     }
@@ -161,15 +181,5 @@ namespace TweetHomeAlabama.Application.Services
 
             return filteredBirds;
         }
-
-        private bool IsValidString(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input)) return false;
-
-            Regex regex = new Regex(@"^([a-zA-Z]+)(,\s*[a-zA-Z]+)*$");
-
-            return regex.IsMatch(input);
-        }
-
     }
 }

@@ -38,11 +38,23 @@ namespace TweetHomeAlabama.API.Controllers
             return Ok(birds);
         }
 
-        [HttpPost]
+        [HttpPost("addbird")]
         public async Task<IActionResult> AddBird([FromBody] BirdDto birdDto)
         {
-            bool result = await _service.AddBird(birdDto);
-            return !result ? StatusCode(500, "Could not save the bird.") : (IActionResult)Ok("Bird added.");
+            bool result = false;
+            try
+            {
+                result = await _service.AddBird(birdDto);
+                return Ok("Bird added successfully.");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Something went wrong.");
+            }
         }
     }
 }
